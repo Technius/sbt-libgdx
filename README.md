@@ -13,9 +13,12 @@ Requirements:
 * SBT 0.13.5 or newer
 * Android SDK
 
-This plugin isn't on any repositories yet. To use it now, clone this repository,
-publish this plugin locally, and include it in `project/plugin.sbt` with
-`addSbtPlugin("co.technius" % "sbt-libgdx" % "0.0.1-SNAPSHOT")`
+Add the following to `project/plugins.sbt`:
+```
+resolvers += Resolver.sonatypeRepo("snaphots")
+
+addSbtPlugin("co.technius" % "sbt-libgdx" % "0.0.1-SNAPSHOT")
+```
 
 To use this plugin, enable the `LibGdxAndroid` plugin on Android projects and
 the `LibGdxDesktop` plugin on Desktop projects.

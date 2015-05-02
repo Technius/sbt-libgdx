@@ -21,7 +21,7 @@ publishArtifact in Test := false
 pomIncludeRepository := { _ => false }
 
 pomExtra := (
-  <url>http://technius.github.io/scalua</url>
+  <url>http://github.com/Technius/sbt-libgdx</url>
   <licenses>
     <license>
       <name>Apache License 2.0</name>

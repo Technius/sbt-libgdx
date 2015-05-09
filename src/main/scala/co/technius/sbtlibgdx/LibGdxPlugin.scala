@@ -20,5 +20,5 @@ object LibGdxPlugin extends AutoPlugin {
     unmanagedResourceDirectories in Compile += assetDir.value
   )
 
-  val libGdxVersion = "1.5.4"
+  val libGdxVersion = "1.6.0"
 }

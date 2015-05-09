@@ -7,9 +7,7 @@ object LibGdxPlugin extends AutoPlugin {
 
   import autoImport._
 
-  override def projectSettings = baseAssetSettings ++ Seq(
-    unmanagedResourceDirectories in Compile += assetDir.value
-  )
+  override def projectSettings = baseAssetSettings
 
   object autoImport {
     val assetDir = settingKey[File]("The folder containing the assets.")
@@ -18,7 +16,8 @@ object LibGdxPlugin extends AutoPlugin {
   }
 
   lazy val baseAssetSettings: Seq[Def.Setting[_]] = Seq(
-    assetDir := baseDirectory.value / ".." / "assets"
+    assetDir := baseDirectory.value / ".." / "assets",
+    unmanagedResourceDirectories in Compile += assetDir.value
   )
 
   val libGdxVersion = "1.5.4"

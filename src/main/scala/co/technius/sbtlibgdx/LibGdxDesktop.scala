@@ -14,14 +14,20 @@ object LibGdxDesktop extends AutoPlugin {
 
   override def requires = LibGdxPlugin && JavaAppPackaging
 
-  override def projectSettings = LibGdxPlugin.projectSettings ++ Seq(
+  override def projectSettings = LibGdxPlugin.projectSettings ++
+    baseProjectSettings
+
+  lazy val baseProjectSettings: Seq[Def.Setting[_]] = Seq(
     fork in run := true,
     libraryDependencies ++= Seq(
       "com.badlogicgames.gdx" % "gdx-backend-lwjgl" % libGdxVersion,
       "com.badlogicgames.gdx" % "gdx-platform" % libGdxVersion classifier "natives-desktop"
     ),
-    mappings in Universal <++= assetDir map { dir =>
-      dir.*** pair rebase(dir, "bin/")
-    }
+    mappings in Universal <++= assetMappingsTask
   )
+
+  lazy val assetMappingsTask = Def.task {
+    val dir = assetDir.value
+    dir.*** pair rebase(dir, "bin/")
+  }
 }

@@ -14,7 +14,7 @@ Requirements:
 * Android SDK
 
 Add the following to `project/plugins.sbt`:
-```
+```scala
 resolvers += Resolver.sonatypeRepo("snaphots")
 
 addSbtPlugin("co.technius" % "sbt-libgdx" % "0.0.1-SNAPSHOT")
@@ -24,7 +24,7 @@ To use this plugin, enable the `LibGdxAndroid` plugin on Android projects and
 the `LibGdxDesktop` plugin on Desktop projects.
 
 Sample `build.sbt`:
-```
+```scala
 val projectName = """my-project"""
 
 name := projectName

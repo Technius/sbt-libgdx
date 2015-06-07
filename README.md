@@ -75,6 +75,35 @@ Assuming the above build file, here are some of the commands:
 
 See SBT Native Packager and android-sdk-plugin for more options.
 
+# Library Aliases
+
+This plugin defines several alises for the extension libraries. These aliases
+can be inserted into `libraryDependencies` in the shared code projects.
+
+* `libGdxBox2d`
+* `libGdxFreeType`
+* `libGdxControllers`
+
+To use them in desktop and Android projects, append them to libraryDependencies,
+with `Desktop` or `Android` appended to their names.
+
+An example is shown below:
+
+```scala
+// core
+libraryDependencies ++= Seq(libGdxBox2d)
+
+// desktop
+libraryDependencies ++= Seq(
+  // other dependencies
+) ++ libGdxBox2dDesktop
+
+// Android
+libraryDependencies ++= Seq(
+  // other dependencies
+) ++ libGdxBox2dAndroid
+```
+
 # Other
 
 This project is licensed under the Apache 2.0 License. See LICENSE for more

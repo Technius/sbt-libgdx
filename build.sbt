@@ -8,9 +8,9 @@ scalaVersion := "2.10.4"
 
 sbtPlugin := true
 
-addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.0.0-M5")
+addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.0.0")
 
-addSbtPlugin("com.hanhuy.sbt" % "android-sdk-plugin" % "1.3.18")
+addSbtPlugin("com.hanhuy.sbt" % "android-sdk-plugin" % "1.3.24")
 
 // Publish settings
 

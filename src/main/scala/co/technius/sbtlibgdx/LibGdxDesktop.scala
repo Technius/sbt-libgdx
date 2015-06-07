@@ -6,7 +6,7 @@ import com.typesafe.sbt.packager.archetypes.JavaAppPackaging
 import sbt._
 
 import Keys._
-import LibGdxPlugin.libGdxVersion
+import LibGdxPlugin.{ desktopDependency, gdxDependency }
 
 object LibGdxDesktop extends AutoPlugin {
 
@@ -20,8 +20,8 @@ object LibGdxDesktop extends AutoPlugin {
   lazy val baseProjectSettings: Seq[Def.Setting[_]] = Seq(
     fork in run := true,
     libraryDependencies ++= Seq(
-      "com.badlogicgames.gdx" % "gdx-backend-lwjgl" % libGdxVersion,
-      "com.badlogicgames.gdx" % "gdx-platform" % libGdxVersion classifier "natives-desktop"
+      gdxDependency("gdx-backend-lwjgl"),
+      desktopDependency("gdx-platform")
     ),
     mappings in Universal <++= assetMappingsTask
   )

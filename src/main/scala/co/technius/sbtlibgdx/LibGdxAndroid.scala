@@ -4,7 +4,7 @@ import android.Keys._
 import android.Plugin.androidBuild
 import sbt._
 import sbt.Keys._
-import LibGdxPlugin.libGdxVersion
+import LibGdxPlugin.{ androidDependency, gdxDependency }
 
 object LibGdxAndroid extends AutoPlugin {
 
@@ -15,10 +15,8 @@ object LibGdxAndroid extends AutoPlugin {
     androidBuild ++
     Seq(
       libraryDependencies ++= Seq(
-        "com.badlogicgames.gdx" % "gdx-backend-android" % libGdxVersion,
-        "com.badlogicgames.gdx" % "gdx-platform" % libGdxVersion classifier "natives-armeabi",
-        "com.badlogicgames.gdx" % "gdx-platform" % libGdxVersion classifier "natives-armeabi-v7a"
-      ),
+        gdxDependency("gdx-backend-android")
+      ) ++ androidDependency("gdx-platform"),
       javacOptions ++= Seq("-source", "1.7", "-target", "1.7"),
       scalacOptions += "-target:jvm-1.7",
       minSdkVersion in Android := "8"

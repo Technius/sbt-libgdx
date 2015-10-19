@@ -55,9 +55,9 @@ object LibGdxPlugin extends AutoPlugin {
 
   private [sbtlibgdx] def androidDependency(name: String) =
     Seq(
-      gdxDependency(name) classifier "natives-armeabi",
-      gdxDependency(name) classifier "natives-armeabi-v7a",
-      gdxDependency(name) classifier "natives-x86"
+      // gdxDependency(name) classifier "natives-x86",
+      // gdxDependency(name) classifier "natives-armeabi",
+      gdxDependency(name) classifier "natives-armeabi-v7a"
     )
 
   private [sbtlibgdx] def desktopDependency(name: String) =

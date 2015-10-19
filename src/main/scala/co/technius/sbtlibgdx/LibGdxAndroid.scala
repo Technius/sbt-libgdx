@@ -19,6 +19,14 @@ object LibGdxAndroid extends AutoPlugin {
       ) ++ androidDependency("gdx-platform"),
       javacOptions ++= Seq("-source", "1.7", "-target", "1.7"),
       scalacOptions += "-target:jvm-1.7",
-      minSdkVersion in Android := "8"
+      minSdkVersion in Android := "8",
+      useProguard in Android := true,
+      proguardScala in Android := true,
+      proguardOptions in Android <++= Def.task {
+        val f = baseDirectory.value / "proguard-project.txt"
+        println(f.getAbsolutePath)
+        if (f.exists) Seq(IO.read(f))
+        else Seq()
+      }
     )
 }

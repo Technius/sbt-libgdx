@@ -31,7 +31,10 @@ name := projectName
 
 version := "1.0.0"
 
-scalaVersion in Global := "2.11.5"
+// setting a value in Global is a bad practice, but just as an example:
+scalaVersion in Global := "2.11.7"
+
+libGdxVersion in Global := "1.9.2"
 
 // Top level project
 lazy val root = Project("root", file("."))
@@ -42,7 +45,7 @@ lazy val core = Project("core", file("core"))
   .settings(
     name := projectName + "-core",
     // 'libGdx' is an alias for the version of libGDX supported by the plugin
-    libraryDependencies += libGdx
+    libraryDependencies += libGdx.value
   )
 
 lazy val android = Project("android", file("android"))
@@ -77,31 +80,51 @@ See SBT Native Packager and android-sdk-plugin for more options.
 
 # Library Aliases
 
-This plugin defines several alises for the extension libraries. These aliases
-can be inserted into `libraryDependencies` in the shared code projects.
+This plugin defines several alises for the libGdx libraries. These aliases
+are defined as settings, so the actual values must be retrieved by calling
+the `value` method on the aliases. They will use the version of libGDX as set
+in the `libGdxVersion` key. To include just the libGdx library, add the
+following to `libraryDependencies`:
+
+```scala
+libraryDependencies += libGdx.value
+```
+
+Do not forget to set the version:
+```scala
+libGdxVersion := "1.9.2"
+```
+Once the `libGdxVersion` key is set, all aliases will use the specified version.
+
+## Extension Libraries
+To use the extension libraries, first insert the aliases into
+`libraryDependencies` in the shared code projects.
 
 * `libGdxBox2d`
 * `libGdxFreeType`
 * `libGdxControllers`
 
-To use them in desktop and Android projects, append them to libraryDependencies,
-with `Desktop` or `Android` appended to their names.
+Then, append the corresponding `Desktop` or `Android` versions to
+`libraryDependencies` in the corresponding projects.
 
 An example is shown below:
 
 ```scala
+// shared settings or in global
+libGdxVersion := "1.9.2"
+
 // core
-libraryDependencies ++= Seq(libGdxBox2d)
+libraryDependencies ++= Seq(libGdxBox2d.value)
 
 // desktop
 libraryDependencies ++= Seq(
   // other dependencies
-) ++ libGdxBox2dDesktop
+) ++ libGdxBox2dDesktop.value
 
 // Android
 libraryDependencies ++= Seq(
   // other dependencies
-) ++ libGdxBox2dAndroid
+) ++ libGdxBox2dAndroid.value
 ```
 
 # Other

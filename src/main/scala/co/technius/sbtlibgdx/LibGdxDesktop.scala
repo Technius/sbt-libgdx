@@ -20,8 +20,8 @@ object LibGdxDesktop extends AutoPlugin {
   lazy val baseProjectSettings: Seq[Def.Setting[_]] = Seq(
     fork in run := true,
     libraryDependencies ++= Seq(
-      gdxDependency("gdx-backend-lwjgl"),
-      desktopDependency("gdx-platform")
+      gdxDependency("gdx-backend-lwjgl").value,
+      desktopDependency("gdx-platform").value
     ),
     mappings in Universal <++= assetMappingsTask
   )

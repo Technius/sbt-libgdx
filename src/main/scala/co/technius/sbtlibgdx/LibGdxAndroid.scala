@@ -15,8 +15,8 @@ object LibGdxAndroid extends AutoPlugin {
     androidBuild ++
     Seq(
       libraryDependencies ++= Seq(
-        gdxDependency("gdx-backend-android")
-      ) ++ androidDependency("gdx-platform"),
+        gdxDependency("gdx-backend-android").value
+      ) ++ androidDependency("gdx-platform").value,
       javacOptions ++= Seq("-source", "1.7", "-target", "1.7"),
       scalacOptions += "-target:jvm-1.7",
       minSdkVersion in Android := "8",

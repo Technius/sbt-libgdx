@@ -103,6 +103,7 @@ To use the extension libraries, first insert the aliases into
 * `libGdxBox2d`
 * `libGdxFreeType`
 * `libGdxControllers`
+* `libGdxTools`
 
 Then, append the corresponding `Desktop` or `Android` versions to
 `libraryDependencies` in the corresponding projects.

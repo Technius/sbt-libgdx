@@ -21,6 +21,8 @@ object LibGdxPlugin extends AutoPlugin {
     val libGdxFreeType = gdxDependency("gdx-freetype")
 
     val libGdxControllers = gdxDependency("gdx-controllers")
+    
+    val libGdxTools = gdxDependency("gdx-tools")
 
     val libGdxBox2dDesktop = Def.setting {
       Seq(libGdxBox2d.value, desktopDependency("gdx-box2d-platform").value)

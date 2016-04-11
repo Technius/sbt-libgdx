@@ -5,6 +5,7 @@ import android.Plugin.androidBuild
 import sbt._
 import sbt.Keys._
 import LibGdxPlugin.{ androidDependency, gdxDependency }
+import LibGdxPlugin.autoImport.assetDir
 
 object LibGdxAndroid extends AutoPlugin {
 
@@ -24,9 +25,33 @@ object LibGdxAndroid extends AutoPlugin {
       proguardScala in Android := true,
       proguardOptions in Android <++= Def.task {
         val f = baseDirectory.value / "proguard-project.txt"
-        println(f.getAbsolutePath)
         if (f.exists) Seq(IO.read(f))
         else Seq()
-      }
+      },
+      collectJni <+= fetchNatives,
+      extraAssetDirectories <+= assetDir
     )
+
+  val fetchNatives = Def.task {
+    val updReport = update.value
+    val af = artifactFilter(classifier = "natives-*")
+    val mf = moduleFilter(
+      organization = "com.badlogicgames.gdx",
+      name = "gdx-platform"
+    )
+    val jars = updReport.select(module = mf, artifact = af)
+    val natives = Seq("armeabi", "armeabi-v7a", "x86")
+    val outputDir = target.value / "libgdx-natives"
+    val mappings = for {
+      n <- natives
+      j <- jars if j.getName.contains(n)
+    } {
+      val path = outputDir / n / "libgdx.so"
+      if (!path.exists) {
+        IO.unzip(j, outputDir / n, "libgdx.so")
+      }
+    }
+
+    outputDir
+  }
 }

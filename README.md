@@ -6,8 +6,6 @@ is a work-in-progress.
 Desktop projects are packaged using SBT Native Packager and Android projects
 are packaged using the android-sdk-plugin.
 
-**TODO: The Android plugin has not been tested yet.**
-
 # Usage
 Requirements:
 * SBT 0.13.5 or newer
@@ -70,13 +68,21 @@ Assets go into the folder defined by the `assetDir` key, which defaults to
 in Android and desktop projects. They are also copied to the `bin` folder of
 the desktop distribution.
 
+For Android projects, you will need to configure proguard. Either specify the
+proguard options with `proguardOptions in Android ++= Seq(...)` or create an
+appropriate `proguard-project.txt` located in the project folder. If both are
+used, the contents of `proguard-project.txt` will be appended to the existing
+configuration.
+
 Assuming the above build file, here are some of the commands:
 * `desktop/run`: runs the desktop project
 * `desktop/universal:packageBin`: creates a tarball distribution of the project
 * `android/android:run`: install and run the project on an Android device
 * `android/android:package-release`: creates a release APK and signs it
 
-See SBT Native Packager and android-sdk-plugin for more options.
+See [SBT Native Packager](https://github.com/sbt/sbt-native-packager) and
+[android-sdk-plugin](https://github.com/pfn/android-sdk-plugin/)
+for more options.
 
 # Library Aliases
 

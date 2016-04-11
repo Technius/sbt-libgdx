@@ -10,7 +10,7 @@ sbtPlugin := true
 
 addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.0.0")
 
-addSbtPlugin("com.hanhuy.sbt" % "android-sdk-plugin" % "1.5.5")
+addSbtPlugin("com.hanhuy.sbt" % "android-sdk-plugin" % "1.5.20")
 
 // Publish settings
 

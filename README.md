@@ -21,47 +21,8 @@ addSbtPlugin("co.technius" % "sbt-libgdx" % "0.0.1-SNAPSHOT")
 To use this plugin, enable the `LibGdxAndroid` plugin on Android projects and
 the `LibGdxDesktop` plugin on Desktop projects.
 
-Sample `build.sbt`:
-```scala
-val projectName = """my-project"""
-
-name := projectName
-
-version := "1.0.0"
-
-// setting a value in Global is a bad practice, but just as an example:
-scalaVersion in Global := "2.11.7"
-
-libGdxVersion in Global := "1.9.2"
-
-// Top level project
-lazy val root = Project("root", file("."))
-  .aggregate(android, desktop)
-
-// Shared code
-lazy val core = Project("core", file("core"))
-  .settings(
-    name := projectName + "-core",
-    // 'libGdx' is an alias for the version of libGDX supported by the plugin
-    libraryDependencies += libGdx.value
-  )
-
-lazy val android = Project("android", file("android"))
-  .settings(
-    name := projectName + "-android",
-    platformTarget in Android := "android-17", // Set Android properties
-    targetSdkVersion in Android := "19" // minSdkVersion defaults to 8
-  )
-  .dependsOn(core)
-  .enablePlugins(LibGdxAndroid) // Enable Android plugin
-
-lazy val desktop = Project("desktop", file("desktop"))
-  .settings(
-    name := projectName + "-desktop"
-  )
-  .dependsOn(core)
-  .enablePlugins(LibGdxDesktop) // Enable desktop plugin
-```
+A sample `build.sbt` file can be viewed
+[here](https://github.com/Technius/activator-libgdx-scala-seed/blob/master/build.sbt).
 
 Assets go into the folder defined by the `assetDir` key, which defaults to
 `assets` under the root project. Assets are automatically included as resources
@@ -70,18 +31,18 @@ the desktop distribution.
 
 For Android projects, you will need to configure proguard. Either specify the
 proguard options with `proguardOptions in Android ++= Seq(...)` or create an
-appropriate `proguard-project.txt` located in the project folder. If both are
-used, the contents of `proguard-project.txt` will be appended to the existing
-configuration.
+appropriate `proguard-project.txt` located in the Android project folder. If
+both are used, the contents of `proguard-project.txt` will be appended to the
+existing configuration.
 
-Assuming the above build file, here are some of the commands:
+Assuming the sample build file, here are some of the commands:
 * `desktop/run`: runs the desktop project
 * `desktop/universal:packageBin`: creates a tarball distribution of the project
 * `android/android:run`: install and run the project on an Android device
 * `android/android:package-release`: creates a release APK and signs it
 
 See [SBT Native Packager](https://github.com/sbt/sbt-native-packager) and
-[android-sdk-plugin](https://github.com/pfn/android-sdk-plugin/)
+[sbt-android](https://github.com/scala-android/sbt-android)
 for more options.
 
 # Library Aliases
@@ -96,7 +57,7 @@ following to `libraryDependencies`:
 libraryDependencies += libGdx.value
 ```
 
-Do not forget to set the version:
+Do not forget to set the version for each platform:
 ```scala
 libGdxVersion := "1.9.2"
 ```
